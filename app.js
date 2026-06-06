@@ -12,6 +12,8 @@ const io = new Server(server);
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
+const seedMenuItems = require("./seed");
+
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -45,22 +47,32 @@ app.get('/auth/adminLogin', (req, res) => {
     res.render('auth/adminLogin');
 });
 
+
+const studentRoutes = require("./routes/studentRoutes");
+
+app.use("/student", studentRoutes);
+
+
+seedMenuItems(); // to seed the database, HARDCODED MENU....
+
+
+
 // Student flow routes
-app.get('/student/menu', (req, res) => {
-    res.render('student/menu');
-});
+// app.get('/student/menu', (req, res) => {
+//     res.render('student/menu');
+// });
 
-app.get('/student/cart', (req, res) => {
-    res.render('student/cart');
-});
+// app.get('/student/cart', (req, res) => {
+//     res.render('student/cart');
+// });
 
-app.get('/student/payment', (req, res) => {
-    res.render('student/payment');
-});
+// app.get('/student/payment', (req, res) => {
+//     res.render('student/payment');
+// });
 
-app.get('/student/success', (req, res) => {
-    res.render('student/success');
-});
+// app.get('/student/success', (req, res) => {
+//     res.render('student/success');
+// });
 
 // Admin flow routes
 app.get('/admin/dashboard', (req, res) => {
